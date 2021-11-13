@@ -79,17 +79,31 @@ async function run(){
           res.json(result);
           });
            
-      // app.delete("/orders/:id", async (req, res) => {
-      // const id = req.params.id;
-      // const query = {_id: ObjectId(id)};
-      // const result = await ordersCollection.deleteOne(query);
-      // res.send(result);
-      // });
+      app.delete("/orders/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = {_id: ObjectId(id)};
+      const result = await ordersCollection.deleteOne(query);
+      res.send(result);
+      });
+
+
+
 
 
       //add review
       app.post('/addreview', async (req, res) => {
         const result = await reviewCollection.insertOne(req.body);
+        res.send(result);
+      });
+      app.get('/review', async (req, res) => {
+        const result = await reviewCollection.find({}).toArray();
+        res.json(result);
+      });
+
+
+      //Manage All Service
+      app.get('/allorder', async (req, res) => {
+        const result =await ordersCollection.find({}).toArray();
         res.send(result);
       })
 
